@@ -1,9 +1,8 @@
 import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
-from telegram.ext import (
-    ApplicationBuilder, CommandHandler, MessageHandler, filters,
-    ContextTypes, CallbackQueryHandler, ConversationHandler
-)
+from telegram.ext import ApplicationBuilder
+app = ApplicationBuilder().token(TOKEN).build()
+app.run_polling()
 
 # Получение токена из переменной окружения
 TOKEN = os.getenv("BOT_TOKEN")
