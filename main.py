@@ -53,7 +53,7 @@ async def username(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = context.user_data
     caption = (
         caption = (
-            f"<b>{data['name']}</b>\n"
+            f"<b>{data['name']}</b>"
             f"{data['description']}\n"
             f"📍 {data['city']}\n"
             f"📦 {data['methods']}"
