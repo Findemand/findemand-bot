@@ -104,11 +104,19 @@ async def set_delivery(update: Update, context: ContextTypes.DEFAULT_TYPE):
         session.add(product)
         session.commit()
 
-caption = (f"🛍️ <b>{product.name}</b>\n"
-           f"📦 <b>Описание:</b> {product.description}\n"
-           f"📍 <b>Город:</b> {product.city}\n"
-           f"🚚 <b>Способ передачи:</b> {'Личная встреча' if product.delivery_meetup else ''} {'Доставка' if product.delivery_shipping else ''}\n"
-           f"👤 <b>Продавец:</b> @{product.user.username}")
+        caption = (
+            f"🛍️ <b>{product.name}</b>
+"
+            f"📦 <b>Описание:</b> {product.description}
+"
+            f"📍 <b>Город:</b> {product.city}
+"
+            f"🚚 <b>Способ передачи:</b> "
+            f"{'Личная встреча' if product.delivery_meetup else ''} "
+            f"{'Доставка' if product.delivery_shipping else ''}
+"
+            f"👤 <b>Продавец:</b> @{update.effective_user.username}"
+        )
 
         media = [InputMediaPhoto(media=pid) for pid in data['photos']]
         media[0].caption = caption
@@ -141,15 +149,19 @@ async def approve(update: Update, context: ContextTypes.DEFAULT_TYPE):
             product.status = 'approved'
             session.commit()
             photos = product.photo_ids.split(',')
-            caption = (f"🛍️ <b>{product.name}</b>
+            caption = (
+                f"🛍️ <b>{product.name}</b>
 "
-                       f"📦 <b>Описание:</b> {product.description}
+                f"📦 <b>Описание:</b> {product.description}
 "
-                       f"📍 <b>Город:</b> {product.city}
+                f"📍 <b>Город:</b> {product.city}
 "
-                       f"🚚 <b>Способ передачи:</b> {'Личная встреча' if product.delivery_meetup else ''} {'Доставка' if product.delivery_shipping else ''}
+                f"🚚 <b>Способ передачи:</b> "
+                f"{'Личная встреча' if product.delivery_meetup else ''} "
+                f"{'Доставка' if product.delivery_shipping else ''}
 "
-                       f"👤 <b>Продавец:</b> @{product.user.username}")
+                f"👤 <b>Продавец:</b> @{product.user.username}"
+            )
             media = [InputMediaPhoto(media=p) for p in photos]
             media[0].caption = caption
             media[0].parse_mode = 'HTML'
